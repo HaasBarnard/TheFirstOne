@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
+        // TODO: 2018/01/26 add onesignal notifications to inform people when the stock is getting low or is about to expire so that they can order again
+        // TODO: 2018/01/26 Need to have an easy way of adding/removing stock and also adjusting volumes/level
+        // TODO: 2018/01/26 There can be multiple items and the one item can also have a level
+
         m_listView = (ListView) findViewById(R.id.lstvw_GroceryItem);
 
 //        GroceryItem one = new GroceryItem();

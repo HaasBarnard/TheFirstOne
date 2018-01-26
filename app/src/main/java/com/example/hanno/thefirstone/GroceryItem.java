@@ -13,6 +13,12 @@ public class GroceryItem extends SugarRecord<GroceryItem>
     int minimumQuantity;
     boolean isLow;
 
+    // TODO: 2018/01/26 add the expiry date and do daily checks to see what will be expiring soon
+    // TODO: 2018/01/26 add an arraylist of barcodes which can all correspond to this product
+    // TODO: 2018/01/26 Need to have a search in add which checks for all current and previously added items
+    // TODO: 2018/01/26 An item can be removed from the list or completely deleted
+    // TODO: 2018/01/26 Need to have different lists. Stock items, out of stock items
+
     public GroceryItem(){}
 
     public GroceryItem(String name, int quantity, int minimumQuantity)

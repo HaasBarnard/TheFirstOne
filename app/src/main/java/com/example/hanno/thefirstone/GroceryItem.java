@@ -9,8 +9,8 @@ import com.orm.SugarRecord;
 public class GroceryItem extends SugarRecord<GroceryItem>
 {
     String name;
-    int quantity;
-    int minimumQuantity;
+    Integer quantity;
+    Integer minimumQuantity;
     boolean isLow;
 
     // TODO: 2018/01/26 add the expiry date and do daily checks to see what will be expiring soon
@@ -38,7 +38,7 @@ public class GroceryItem extends SugarRecord<GroceryItem>
         this.name = name;
     }
 
-    public int getQuantity()
+    public Integer getQuantity()
     {
         return quantity;
     }

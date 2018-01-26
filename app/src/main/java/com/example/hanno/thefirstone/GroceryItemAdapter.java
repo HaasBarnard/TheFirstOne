@@ -63,8 +63,12 @@ public class GroceryItemAdapter extends ArrayAdapter<GroceryItem>
         }
 
         TextView itemName = view.findViewById(R.id.txtvw_ItemName);
+        TextView itemQuantity = view.findViewById(R.id.txtvw_itemQuantity);
 
         itemName.setText(currentItem.getName());
+
+
+        itemQuantity.setText(currentItem.getQuantity().toString());
 
         return view;
     }

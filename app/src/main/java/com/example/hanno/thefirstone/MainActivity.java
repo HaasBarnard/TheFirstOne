@@ -101,8 +101,7 @@ public class MainActivity extends AppCompatActivity
                         return;
                     }
 
-                    GroceryItem one = new GroceryItem();
-                    one.setName(tilTextName.getText().toString());
+                    GroceryItem one = new GroceryItem(tilTextName.getText().toString());
 
                     one.save();
 

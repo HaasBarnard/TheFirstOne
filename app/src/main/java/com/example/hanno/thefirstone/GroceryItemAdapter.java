@@ -67,8 +67,10 @@ public class GroceryItemAdapter extends ArrayAdapter<GroceryItem>
 
         itemName.setText(currentItem.getName());
 
-
-        itemQuantity.setText(currentItem.getQuantity().toString());
+        if(currentItem.getQuantity() != null)
+        {
+            itemQuantity.setText(currentItem.getQuantity().toString());
+        }
 
         return view;
     }

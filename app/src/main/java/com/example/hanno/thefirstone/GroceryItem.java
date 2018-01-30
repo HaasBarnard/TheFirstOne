@@ -21,6 +21,14 @@ public class GroceryItem extends SugarRecord<GroceryItem>
 
     public GroceryItem(){}
 
+    public GroceryItem(String name)
+    {
+        this.name = name;
+        this.quantity = 0;
+        this.minimumQuantity = 0;
+    }
+
+
     public GroceryItem(String name, int quantity, int minimumQuantity)
     {
         this.name = name;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
 {
-    ArrayList<GroceryItem> groceryItems;
+    ArrayList<GroceryItem> m_groceryItems;
     ListView m_listView;
     GroceryItemAdapter m_groceryItemAdapter;
 
@@ -45,15 +43,16 @@ public class MainActivity extends AppCompatActivity
 //
 //        one.setName("The first one");
 
-//        groceryItems = new ArrayList<>();
-//        groceryItems.add(one);
+//        m_groceryItems = new ArrayList<>();
+//        m_groceryItems.add(one);
 
         loadGroceryItemsFromDB();
 
-        m_groceryItemAdapter = new GroceryItemAdapter(this, R.layout.row_grocery_item, groceryItems);
+        m_groceryItemAdapter = new GroceryItemAdapter(this, R.layout.row_grocery_item, m_groceryItems);
 
         m_listView.setAdapter(m_groceryItemAdapter);
 
+        m_listView.setOnItemClickListener(itemClickListener);
         m_listView.setOnItemLongClickListener(itemLongClickListener);
 
         m_groceryItemAdapter.notifyDataSetChanged();
@@ -64,15 +63,15 @@ public class MainActivity extends AppCompatActivity
 
     private void loadGroceryItemsFromDB()
     {
-//        groceryItems = new ArrayList<>(GroceryItem.listAll(GroceryItem.class));
-        groceryItems = (ArrayList<GroceryItem>)(GroceryItem.listAll(GroceryItem.class));
+//        m_groceryItems = new ArrayList<>(GroceryItem.listAll(GroceryItem.class));
+        m_groceryItems = (ArrayList<GroceryItem>)(GroceryItem.listAll(GroceryItem.class));
 
-        if (groceryItems == null)
+        if (m_groceryItems == null)
         {
-            groceryItems = new ArrayList<>();
+            m_groceryItems = new ArrayList<>();
         }
 
-//        m_groceryItemAdapter.setGroceryItems(groceryItems);
+//        m_groceryItemAdapter.setGroceryItems(m_groceryItems);
 //        m_groceryItemAdapter.notifyDataSetChanged();
     }
 
@@ -108,7 +107,41 @@ public class MainActivity extends AppCompatActivity
                     one.save();
 
                     loadGroceryItemsFromDB();
-                    m_groceryItemAdapter.setGroceryItems(groceryItems);
+                    m_groceryItemAdapter.setGroceryItems(m_groceryItems);
+                    m_groceryItemAdapter.notifyDataSetChanged();
+                }
+            });
+
+            builder.create().show();
+        }
+    };
+
+    AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener()
+    {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+        {
+            final GroceryItem selectedItem = m_groceryItems.get(position);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+            builder.setTitle("Change quantity");
+            builder.setPositiveButton("Add", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    selectedItem.changeQuantity(true);
+                    m_groceryItemAdapter.notifyDataSetChanged();
+                }
+            });
+
+            builder.setNegativeButton("Remove", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    selectedItem.changeQuantity(false);
                     m_groceryItemAdapter.notifyDataSetChanged();
                 }
             });
@@ -131,10 +164,10 @@ public class MainActivity extends AppCompatActivity
                 public void onClick(DialogInterface dialog, int which)
                 {
 
-                    groceryItems.get(position).delete();
+                    m_groceryItems.get(position).delete();
 
                     loadGroceryItemsFromDB();
-                    m_groceryItemAdapter.setGroceryItems(groceryItems);
+                    m_groceryItemAdapter.setGroceryItems(m_groceryItems);
                     m_groceryItemAdapter.notifyDataSetChanged();
                 }
             });

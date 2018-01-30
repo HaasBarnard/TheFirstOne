@@ -28,6 +28,25 @@ public class GroceryItem extends SugarRecord<GroceryItem>
         this.minimumQuantity = minimumQuantity;
     }
 
+
+    public void changeQuantity(boolean increase)
+    {
+        int currentQuantity = this.getQuantity();
+
+        if (increase)
+        {
+            currentQuantity++;
+        }
+        else
+        {
+            currentQuantity--;
+        }
+
+        this.setQuantity(currentQuantity);
+
+        save();
+    }
+
     public String getName()
     {
         return name;
